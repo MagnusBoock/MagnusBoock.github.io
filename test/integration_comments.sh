@@ -20,6 +20,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# _posts/ has no real content in this starter and git doesn't track empty
+# directories, so a fresh checkout won't have it at all — create it first.
+mkdir -p _posts
+
 cat >"${giscus_fixture}" <<'POST'
 ---
 layout: post
