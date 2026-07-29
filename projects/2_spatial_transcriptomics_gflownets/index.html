@@ -1,14 +1,31 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Generative Flow Networks for Spatial Transcriptomics | Magnus Victor Boock </title> <meta name="author" content="Magnus Victor Boock"> <meta name="description" content="MS thesis — artificial data generation of spatial transcriptomics with reinforcement learning"> <meta name="keywords" content="reinforcement learning, PAC-Bayes, machine learning, PhD, computer science, academic-website"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Generative Flow Networks for Spatial Transcriptomics | Magnus Victor Boock </title> <meta name="author" content="Magnus Victor Boock"> <meta name="description" content="MS thesis — artificial data generation of spatial transcriptomics with reinforcement learning"> <meta name="keywords" content="reinforcement learning, offline reinforcement learning, distributional reinforcement learning, representation learning, PAC-Bayes, machine learning, PhD, computer science"> <meta property="og:site_name" content="Magnus Victor Boock"> <meta property="og:type" content="website"> <meta property="og:title" content="Magnus Victor Boock | Generative Flow Networks for Spatial Transcriptomics"> <meta property="og:url" content="https://magnusboock.github.io/projects/2_spatial_transcriptomics_gflownets/"> <meta property="og:description" content="MS thesis — artificial data generation of spatial transcriptomics with reinforcement learning"> <meta property="og:image" content="https://magnusboock.github.io/assets/img/prof_pic.jpg"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="Generative Flow Networks for Spatial Transcriptomics"> <meta name="twitter:description" content="MS thesis — artificial data generation of spatial transcriptomics with reinforcement learning"> <meta name="twitter:image" content="https://magnusboock.github.io/assets/img/prof_pic.jpg"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Magnus Victor Boock"
+        },
+        "url": "https://magnusboock.github.io/projects/2_spatial_transcriptomics_gflownets/",
+        "@type": "WebSite",
+        "description": "MS thesis — artificial data generation of spatial transcriptomics with reinforcement learning",
+        "headline": "Generative Flow Networks for Spatial Transcriptomics",
+        
+        "sameAs": [null,"https://github.com/MagnusBoock","https://www.linkedin.com/in/magnus-boock","https://orcid.org/0009-0001-3459-2310","https://scholar.google.com/citations?user=9itaTnQAAAAJ"],
+        
+        "name": "Magnus Victor Boock",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
   :root {
     --max-content-width: 930px;
   }
 </style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A4%96&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://magnusboock.github.io/projects/2_spatial_transcriptomics_gflownets/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
     initTheme();
-  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Magnus</span> Victor Boock </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/projects/">projects <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Generative Flow Networks for Spatial Transcriptomics</h1> <p class="post-description">MS thesis — artificial data generation of spatial transcriptomics with reinforcement learning</p> </header> <article> <p><strong>Thesis:</strong> Artificial Data Generation of Spatial Transcriptomics with Reinforcement Learning <strong>Author:</strong> Magnus Victor Boock — Master Thesis in Computer Science, University of Southern Denmark (June 2025) <strong>Supervisors:</strong> Richard Röttger, Melih Kandemir</p> <h2 id="introduction">Introduction</h2> <p>This thesis was carried out in collaboration with the research group Multi-Omics Profiling In Time and Space (MOPITAS), who develop algorithms to increase the spatial resolution of gene-expression data. Cells in tissue behave and function largely based on interactions with their neighbors, so understanding gene expression <em>and</em> spatial position at single-cell resolution is valuable for studying disease progression and treatment. The project explores whether such single-cell-resolution spatial datasets can be generated synthetically, to give MOPITAS a known ground truth for evaluating their resolution-enhancing algorithms.</p> <h2 id="problem-statement">Problem Statement</h2> <p>Two established technologies each capture only half the picture:</p> <ul> <li> <strong>Single-cell RNA sequencing (scRNA-seq)</strong> gives high-resolution gene expression per individual cell, but the tissue is dissociated in the process — spatial position is lost.</li> <li> <strong>Spatial Transcriptomics (ST)</strong>, e.g. 10x Genomics Visium, preserves spatial position but only at the resolution of <em>spots</em> covering ~10 cells each — individual cells within a spot are not distinguished.</li> </ul> <p>Algorithms that try to combine the two (inferring single-cell-resolution spatial data from existing scRNA-seq + ST datasets) have no way to be evaluated against ground truth, because generating either real data type destroys the original tissue. This motivates generating <strong>synthetic</strong> single-cell-resolution spatially-resolved datasets, for which the ground truth is known by construction — with a particular focus on capturing cell-to-cell interactions between neighboring cells, since these directly influence the properties of cell groups.</p> <p>Existing spatial transcriptomics simulators — e.g. SpatialcoGCN <a class="citation" href="#yin2024spatialcogcn">(Yin et al., 2024)</a>, SRTsim <a class="citation" href="#zhu2023srtsim">(Zhu et al., 2023)</a>, scDesign3 <a class="citation" href="#song2024scdesign3">(Song et al., 2024)</a>, and scCube <a class="citation" href="#qian2024sccube">(Qian et al., 2024)</a> — generate statistically realistic ST-like data, but do not target explicit, ground-truth single-cell-resolution cell-to-cell interaction structure, which this project’s RL-based approach is designed to capture.</p> <h2 id="methodology">Methodology</h2> <p>The project builds on <strong>Generative Flow Networks (GFlowNets)</strong> <a class="citation" href="#bengio2021flownetworks">(Bengio et al., 2021)</a> <a class="citation" href="#bengio2023foundations">(Bengio et al., 2023)</a>, a reinforcement learning framework where an agent sequentially constructs an object $x$ with probability <em>proportional</em> to its reward, $\pi(x) \propto R(x)$ — rather than the usual RL objective of maximizing expected return along one or a few optimal trajectories. This matters for dataset generation because the goal is <em>diverse</em> high-quality tissue layouts, not a single “best” one. GFlowNets were chosen partly by analogy to their prior success in molecule generation, where atoms are sequentially added to a graph — structurally similar to sequentially assigning cell types to positions.</p> <p>Two GFlowNet training objectives were compared in depth: <strong>Trajectory Balance (TB-GFN)</strong> <a class="citation" href="#malkin2022trajectory">(Malkin et al., 2022)</a>, which only needs a reward for the <em>complete</em> trajectory, and <strong>Forward-Looking (FL-GFN)</strong> <a class="citation" href="#pan2023better">(Pan et al., 2023)</a>, which uses intermediate, per-step rewards for more fine-grained credit assignment. TB-GFN was chosen as the primary method because it is difficult to define a correct, deterministic <em>intermediate</em> reward for this task, whereas a deterministic terminal reward is straightforward.</p> <p>Two modeling approaches for representing the tissue-generation problem were developed:</p> <ul> <li> <strong>Iterative Resolution Zoom (IRZ)</strong> — a divide-and-conquer approach that starts with a coarse grid over the tissue and repeatedly refines it to higher resolution. This was ultimately abandoned: it conceptually clashes with GFlowNet’s “sequentially <em>add</em> to an object” paradigm (IRZ instead repeatedly revises/undoes prior assignments), and its state representation and lack of spatial structure made learning difficult.</li> <li> <strong>Neighborhood Matching (NM)</strong> — the approach used for all final results. It represents the tissue as a fixed hexagonal grid (mirroring 10x Visium’s spot layout), where every position has exactly 6 neighbors (padded with an “empty” type at borders). A discrete cell type is assigned to one position at a time and never revisited, matching GFlowNet’s sequential, add-only structure. The reward compares, for each cell type, the local neighborhood composition around cells of that type in the generated tissue against the same statistic in a reference tissue, using Jensen-Shannon (or KL) divergence.</li> </ul> <p>For the neural network, a Graph Attention Network (GAT) followed by a feedforward network clearly outperformed a plain feedforward network alone, and was used for all reported results.</p> <h2 id="algorithm">Algorithm</h2> <p>At each step, the Neighborhood Matching agent assigns one remaining cell type to one remaining grid position (action masking ensures the cell-type pool matches the reference exactly). Several reward-shaping schemes were tested — binary, linear, exponential, and an exponential-with-penalty variant that additionally penalizes assignments creating cell-type adjacencies never seen in the reference. The exponential-with-penalty reward gave the sharpest concentration of reward on near-perfect matches and was used for the main results.</p> <p>A range of auxiliary RL techniques were tested to help training in the large state space: ε-greedy exploration, temperature scaling of the action distribution, entropy regularization, a UCBVI-inspired exploration bonus, learning-rate scheduling (warm-up followed by decay, including cosine annealing with/without warm restarts, and a higher learning rate for the learned $Z_\theta$ parameter), and experience replay on the best terminal states found so far.</p> <h2 id="theoretical-analysis">Theoretical Analysis</h2> <p>A key analytical contribution is a combinatorial feasibility bound on the number of distinct terminal states (assignments) $\lvert\mathcal{X}\rvert$ for a reference tissue of $n$ positions with per-type proportions $P_G(t)$:</p> \[\lvert\mathcal{X}\rvert = \frac{n!}{\prod_{t \in T}(n \cdot P_G(t))!}\] <p>For a small example (20 spots, 5 cell types with proportions 0.7/0.1/0.1/0.05/0.05), this gives about $7\times10^6$ possible assignments — large but searchable. Scaling only the number of spots up by 3× (to 60) already produces about $3.17\times10^{23}$ possible assignments — far beyond what any search or learning procedure can cover — while a realistic large ST dataset has on the order of 4,000 spots. This combinatorial explosion, rather than model architecture or hyperparameter tuning, is identified as the central obstacle to scaling the approach to real data.</p> <h2 id="results">Results</h2> <ul> <li> <strong>Z-regularizer.</strong> Adding a term that penalizes an unrealistically low learned $Z_\theta$ (the TB-GFN normalizing constant) noticeably sped up convergence across 3 seeds without hurting final reward or the number of distinct high-reward (“perfect”) terminal states found (Figure 9) — this regularizer was kept for all later experiments.</li> <li> <strong>Medium mock instances.</strong> Training was evaluated on two small synthetic reference tissues, “Scatter” and “Lines” (Figure 7), across combinations of learning-rate schedulers (cosine annealing, with and without warm restarts), temperature decay, and experience replay (Figures 10–11). <ul> <li>On <em>Scatter</em>, the best TB-GFN configuration (experience replay + cosine annealing) achieved the lowest loss, highest mean reward, and most unique perfect terminal states found. A configuration using learning-rate warm restarts was knocked out of a good local optimum partway through training (~3,500 episodes in), illustrating the instability risk of aggressive LR resets. FL-GFN’s best configuration only matched TB-GFN’s most basic (no auxiliary-method) configuration — attributed to FL-GFN relying on “pseudorewards” that can’t be computed correctly until every neighboring position has been assigned.</li> <li>On <em>Lines</em>, TB-GFN configurations performed more similarly to each other, and FL-GFN was less consistent across configurations but reached comparable best-case performance, notably improving when combined with temperature decay.</li> </ul> </li> <li> <strong>Scaling limit.</strong> Slightly larger instances (e.g. a scatter-like reference enlarged by 2 side-lengths) were not solvable within the same training budget — direct empirical confirmation of the combinatorial bottleneck identified in the theoretical analysis.</li> </ul> <p>Overall, GFlowNets proved capable of learning to reliably sample <em>many</em> distinct high-reward tissue layouts sharing the reference’s local cell-type sub-structures, on small, simple mock instances — but the maximum achievable reward was not yet sampled exclusively even in the best runs, and performance did not extend to meaningfully larger instances.</p> <h2 id="conclusion">Conclusion</h2> <p>This thesis set out to generate full-scale, single-cell-resolution synthetic Spatial Transcriptomics datasets with a known ground truth, to support MOPITAS’s evaluation needs. That end goal was <strong>not reached</strong>: the work is explicitly framed as a feasibility study and proof of concept. The Neighborhood Matching approach, trained with GFlowNets (primarily Trajectory Balance), was shown to reliably learn spatial cell-type structures on small, simplified mock tissues, consistently discovering many high-reward assignments. The dominant limiting factor throughout is the combinatorial size of the state space, not the model architecture, loss function, or hyperparameter tuning — meaning further hyperparameter search alone is unlikely to unlock significantly larger or more complex instances.</p> <p>The thesis outlines several concrete directions for future work: richer reward functions that look beyond immediate neighbors (e.g. distance-decayed neighborhood weighting); replacing the hand-designed divergence-based reward with a learned critic in a GAN-style setup; dynamically/progressively increasing the required match quality during training (curriculum-style reward shaping); a divide-and-conquer scheme that generates and stitches together independently-modeled sub-tissues; exploration strategies that up-weight rare cell types; and revisiting Forward-Looking GFlowNets with a properly deterministic intermediate reward. Warm-starting training from known good terminal states was attempted but discarded, since it can bias the model toward a non-representative subset of solutions and — more fundamentally — generating such “known good” states is itself as hard as the original problem.</p> </article> <h2>References</h2> <div class="publications"> <h2 class="bibliography">2024</h2> <ol class="bibliography"> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Bioinformatics</abbr> </div> <div id="yin2024spatialcogcn" class="col-sm-8"> <div class="title">SpatialcoGCN: Deconvolution and Spatial Information-Aware Simulation of Spatial Transcriptomics Data via Deep Graph Co-Embedding</div> <div class="author"> Wang Yin, You Wan, and Yuan Zhou </div> <div class="periodical"> <em>Briefings in Bioinformatics</em>, 2024 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1093/bib/bbae130" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Nat. Biotechnol.</abbr> </div> <div id="song2024scdesign3" class="col-sm-8"> <div class="title">scDesign3 Generates Realistic In Silico Data for Multimodal Single-Cell and Spatial Omics</div> <div class="author"> Dongyuan Song, Qingyang Wang, Guanao Yan, and <span class="more-authors" title="click to view 3 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '3 more authors' ? 'Tianyang Liu, Tianyi Sun, Jingyi Jessica Li' : '3 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">3 more authors</span> </div> <div class="periodical"> <em>Nature Biotechnology</em>, 2024 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/s41587-023-01772-1" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Nat. Commun.</abbr> </div> <div id="qian2024sccube" class="col-sm-8"> <div class="title">Simulating Multiple Variability in Spatially Resolved Transcriptomics with scCube</div> <div class="author"> Jingyang Qian, Hudong Bao, Xin Shao, and <span class="more-authors" title="click to view 10 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '10 more authors' ? 'Yin Fang, Jie Liao, Zhuo Chen, Chengyu Li, Wenbo Guo, Yining Hu, Anyao Li, Yue Yao, Xiaohui Fan, Yiyu Cheng' : '10 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">10 more authors</span> </div> <div class="periodical"> <em>Nature Communications</em>, 2024 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/s41467-024-49445-0" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> </ol> <h2 class="bibliography">2023</h2> <ol class="bibliography"> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Genome Biology</abbr> </div> <div id="zhu2023srtsim" class="col-sm-8"> <div class="title">SRTsim: Spatial Pattern Preserving Simulations for Spatially Resolved Transcriptomics</div> <div class="author"> Jiaqiang Zhu, Lulu Shang, and Xiang Zhou </div> <div class="periodical"> <em>Genome Biology</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1186/s13059-023-02879-z" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">JMLR</abbr> </div> <div id="bengio2023foundations" class="col-sm-8"> <div class="title">GFlowNet Foundations</div> <div class="author"> Yoshua Bengio, Salem Lahlou, Tristan Deleu, and <span class="more-authors" title="click to view 3 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '3 more authors' ? 'Edward J. Hu, Mo Tiwari, Emmanuel Bengio' : '3 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">3 more authors</span> </div> <div class="periodical"> <em>Journal of Machine Learning Research</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">ICML</abbr> </div> <div id="pan2023better" class="col-sm-8"> <div class="title">Better Training of GFlowNets with Local Credit and Incomplete Trajectories</div> <div class="author"> Ling Pan, Nikolay Malkin, Dinghuai Zhang, and <span class="more-authors" title="click to view 1 more author" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '1 more author' ? 'Yoshua Bengio' : '1 more author'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">1 more author</span> </div> <div class="periodical"> <em>In International Conference on Machine Learning (ICML)</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> </ol> <h2 class="bibliography">2022</h2> <ol class="bibliography"><li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">NeurIPS</abbr> </div> <div id="malkin2022trajectory" class="col-sm-8"> <div class="title">Trajectory Balance: Improved Credit Assignment in GFlowNets</div> <div class="author"> Nikolay Malkin, Moksh Jain, Emmanuel Bengio, and <span class="more-authors" title="click to view 2 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '2 more authors' ? 'Chen Sun, Yoshua Bengio' : '2 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">2 more authors</span> </div> <div class="periodical"> <em>In Advances in Neural Information Processing Systems (NeurIPS)</em>, 2022 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li></ol> <h2 class="bibliography">2021</h2> <ol class="bibliography"><li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">NeurIPS</abbr> </div> <div id="bengio2021flownetworks" class="col-sm-8"> <div class="title">Flow Network based Generative Models for Non-Iterative Diverse Candidate Generation</div> <div class="author"> Emmanuel Bengio, Moksh Jain, Maksym Korablyov, and <span class="more-authors" title="click to view 2 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '2 more authors' ? 'Doina Precup, Yoshua Bengio' : '2 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">2 more authors</span> </div> <div class="periodical"> <em>In Advances in Neural Information Processing Systems (NeurIPS)</em>, 2021 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li></ol> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Magnus Victor Boock. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Magnus</span> Victor Boock </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/projects/">projects <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Generative Flow Networks for Spatial Transcriptomics</h1> <p class="post-description">MS thesis — artificial data generation of spatial transcriptomics with reinforcement learning</p> </header> <article> <p><strong>Thesis:</strong> Artificial Data Generation of Spatial Transcriptomics with Reinforcement Learning <strong>Author:</strong> Magnus Victor Boock — Master Thesis in Computer Science, University of Southern Denmark (June 2025) <strong>Supervisors:</strong> Richard Röttger, Melih Kandemir</p> <h2 id="introduction">Introduction</h2> <p>This thesis was carried out in collaboration with the research group Multi-Omics Profiling In Time and Space (MOPITAS), who develop algorithms to increase the spatial resolution of gene-expression data. Cells in tissue behave and function largely based on interactions with their neighbors, so understanding gene expression <em>and</em> spatial position at single-cell resolution is valuable for studying disease progression and treatment. The project explores whether such single-cell-resolution spatial datasets can be generated synthetically, to give MOPITAS a known ground truth for evaluating their resolution-enhancing algorithms.</p> <h2 id="problem-statement">Problem Statement</h2> <p>Two established technologies each capture only half the picture:</p> <ul> <li> <strong>Single-cell RNA sequencing (scRNA-seq)</strong> gives high-resolution gene expression per individual cell, but the tissue is dissociated in the process — spatial position is lost.</li> <li> <strong>Spatial Transcriptomics (ST)</strong>, e.g. 10x Genomics Visium, preserves spatial position but only at the resolution of <em>spots</em> covering ~10 cells each — individual cells within a spot are not distinguished.</li> </ul> <p>Algorithms that try to combine the two (inferring single-cell-resolution spatial data from existing scRNA-seq + ST datasets) have no way to be evaluated against ground truth, because generating either real data type destroys the original tissue. This motivates generating <strong>synthetic</strong> single-cell-resolution spatially-resolved datasets, for which the ground truth is known by construction — with a particular focus on capturing cell-to-cell interactions between neighboring cells, since these directly influence the properties of cell groups.</p> <p>Existing spatial transcriptomics simulators — e.g. SpatialcoGCN <a class="citation" href="#yin2024spatialcogcn">(Yin et al., 2024)</a>, SRTsim <a class="citation" href="#zhu2023srtsim">(Zhu et al., 2023)</a>, scDesign3 <a class="citation" href="#song2024scdesign3">(Song et al., 2024)</a>, and scCube <a class="citation" href="#qian2024sccube">(Qian et al., 2024)</a> — generate statistically realistic ST-like data, but do not target explicit, ground-truth single-cell-resolution cell-to-cell interaction structure, which this project’s RL-based approach is designed to capture.</p> <h2 id="methodology">Methodology</h2> <p>The project builds on <strong>Generative Flow Networks (GFlowNets)</strong> <a class="citation" href="#bengio2021flownetworks">(Bengio et al., 2021)</a> <a class="citation" href="#bengio2023foundations">(Bengio et al., 2023)</a>, a reinforcement learning framework where an agent sequentially constructs an object $x$ with probability <em>proportional</em> to its reward, $\pi(x) \propto R(x)$ — rather than the usual RL objective of maximizing expected return along one or a few optimal trajectories. This matters for dataset generation because the goal is <em>diverse</em> high-quality tissue layouts, not a single “best” one. GFlowNets were chosen partly by analogy to their prior success in molecule generation, where atoms are sequentially added to a graph — structurally similar to sequentially assigning cell types to positions.</p> <p>Two GFlowNet training objectives were compared in depth: <strong>Trajectory Balance (TB-GFN)</strong> <a class="citation" href="#malkin2022trajectory">(Malkin et al., 2022)</a>, which only needs a reward for the <em>complete</em> trajectory, and <strong>Forward-Looking (FL-GFN)</strong> <a class="citation" href="#pan2023better">(Pan et al., 2023)</a>, which uses intermediate, per-step rewards for more fine-grained credit assignment. TB-GFN was chosen as the primary method because it is difficult to define a correct, deterministic <em>intermediate</em> reward for this task, whereas a deterministic terminal reward is straightforward.</p> <p>Two modeling approaches for representing the tissue-generation problem were developed:</p> <ul> <li> <strong>Iterative Resolution Zoom (IRZ)</strong> — a divide-and-conquer approach that starts with a coarse grid over the tissue and repeatedly refines it to higher resolution. This was ultimately abandoned: it conceptually clashes with GFlowNet’s “sequentially <em>add</em> to an object” paradigm (IRZ instead repeatedly revises/undoes prior assignments), and its state representation and lack of spatial structure made learning difficult.</li> <li> <strong>Neighborhood Matching (NM)</strong> — the approach used for all final results. It represents the tissue as a fixed hexagonal grid (mirroring 10x Visium’s spot layout), where every position has exactly 6 neighbors (padded with an “empty” type at borders). A discrete cell type is assigned to one position at a time and never revisited, matching GFlowNet’s sequential, add-only structure. The reward compares, for each cell type, the local neighborhood composition around cells of that type in the generated tissue against the same statistic in a reference tissue, using Jensen-Shannon (or KL) divergence.</li> </ul> <p>For the neural network, a Graph Attention Network (GAT) followed by a feedforward network clearly outperformed a plain feedforward network alone, and was used for all reported results.</p> <h2 id="algorithm">Algorithm</h2> <p>At each step, the Neighborhood Matching agent assigns one remaining cell type to one remaining grid position (action masking ensures the cell-type pool matches the reference exactly). Several reward-shaping schemes were tested — binary, linear, exponential, and an exponential-with-penalty variant that additionally penalizes assignments creating cell-type adjacencies never seen in the reference. The exponential-with-penalty reward gave the sharpest concentration of reward on near-perfect matches and was used for the main results.</p> <p>A range of auxiliary RL techniques were tested to help training in the large state space: ε-greedy exploration, temperature scaling of the action distribution, entropy regularization, a UCBVI-inspired exploration bonus, learning-rate scheduling (warm-up followed by decay, including cosine annealing with/without warm restarts, and a higher learning rate for the learned $Z_\theta$ parameter), and experience replay on the best terminal states found so far.</p> <h2 id="theoretical-analysis">Theoretical Analysis</h2> <p>A key analytical contribution is a combinatorial feasibility bound on the number of distinct terminal states (assignments) $\lvert\mathcal{X}\rvert$ for a reference tissue of $n$ positions with per-type proportions $P_G(t)$:</p> \[\lvert\mathcal{X}\rvert = \frac{n!}{\prod_{t \in T}(n \cdot P_G(t))!}\] <p>For a small example (20 spots, 5 cell types with proportions 0.7/0.1/0.1/0.05/0.05), this gives about $7\times10^6$ possible assignments — large but searchable. Scaling only the number of spots up by 3× (to 60) already produces about $3.17\times10^{23}$ possible assignments — far beyond what any search or learning procedure can cover — while a realistic large ST dataset has on the order of 4,000 spots. This combinatorial explosion, rather than model architecture or hyperparameter tuning, is identified as the central obstacle to scaling the approach to real data.</p> <h2 id="results">Results</h2> <ul> <li> <strong>Z-regularizer.</strong> Adding a term that penalizes an unrealistically low learned $Z_\theta$ (the TB-GFN normalizing constant) noticeably sped up convergence across 3 seeds without hurting final reward or the number of distinct high-reward (“perfect”) terminal states found (Figure 9) — this regularizer was kept for all later experiments.</li> <li> <strong>Medium mock instances.</strong> Training was evaluated on two small synthetic reference tissues, “Scatter” and “Lines” (Figure 7), across combinations of learning-rate schedulers (cosine annealing, with and without warm restarts), temperature decay, and experience replay (Figures 10–11). <ul> <li>On <em>Scatter</em>, the best TB-GFN configuration (experience replay + cosine annealing) achieved the lowest loss, highest mean reward, and most unique perfect terminal states found. A configuration using learning-rate warm restarts was knocked out of a good local optimum partway through training (~3,500 episodes in), illustrating the instability risk of aggressive LR resets. FL-GFN’s best configuration only matched TB-GFN’s most basic (no auxiliary-method) configuration — attributed to FL-GFN relying on “pseudorewards” that can’t be computed correctly until every neighboring position has been assigned.</li> <li>On <em>Lines</em>, TB-GFN configurations performed more similarly to each other, and FL-GFN was less consistent across configurations but reached comparable best-case performance, notably improving when combined with temperature decay.</li> </ul> </li> <li> <strong>Scaling limit.</strong> Slightly larger instances (e.g. a scatter-like reference enlarged by 2 side-lengths) were not solvable within the same training budget — direct empirical confirmation of the combinatorial bottleneck identified in the theoretical analysis.</li> </ul> <p>Overall, GFlowNets proved capable of learning to reliably sample <em>many</em> distinct high-reward tissue layouts sharing the reference’s local cell-type sub-structures, on small, simple mock instances — but the maximum achievable reward was not yet sampled exclusively even in the best runs, and performance did not extend to meaningfully larger instances.</p> <h2 id="conclusion">Conclusion</h2> <p>This thesis set out to generate full-scale, single-cell-resolution synthetic Spatial Transcriptomics datasets with a known ground truth, to support MOPITAS’s evaluation needs. That end goal was <strong>not reached</strong>: the work is explicitly framed as a feasibility study and proof of concept. The Neighborhood Matching approach, trained with GFlowNets (primarily Trajectory Balance), was shown to reliably learn spatial cell-type structures on small, simplified mock tissues, consistently discovering many high-reward assignments. The dominant limiting factor throughout is the combinatorial size of the state space, not the model architecture, loss function, or hyperparameter tuning — meaning further hyperparameter search alone is unlikely to unlock significantly larger or more complex instances.</p> <p>The thesis outlines several concrete directions for future work: richer reward functions that look beyond immediate neighbors (e.g. distance-decayed neighborhood weighting); replacing the hand-designed divergence-based reward with a learned critic in a GAN-style setup; dynamically/progressively increasing the required match quality during training (curriculum-style reward shaping); a divide-and-conquer scheme that generates and stitches together independently-modeled sub-tissues; exploration strategies that up-weight rare cell types; and revisiting Forward-Looking GFlowNets with a properly deterministic intermediate reward. Warm-starting training from known good terminal states was attempted but discarded, since it can bias the model toward a non-representative subset of solutions and — more fundamentally — generating such “known good” states is itself as hard as the original problem.</p> </article> <h2>References</h2> <div class="publications"> <h2 class="bibliography">2024</h2> <ol class="bibliography"> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Bioinformatics</abbr> </div> <div id="yin2024spatialcogcn" class="col-sm-8"> <div class="title">SpatialcoGCN: Deconvolution and Spatial Information-Aware Simulation of Spatial Transcriptomics Data via Deep Graph Co-Embedding</div> <div class="author"> Wang Yin, You Wan, and Yuan Zhou </div> <div class="periodical"> <em>Briefings in Bioinformatics</em>, 2024 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1093/bib/bbae130" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Nat. Biotechnol.</abbr> </div> <div id="song2024scdesign3" class="col-sm-8"> <div class="title">scDesign3 Generates Realistic In Silico Data for Multimodal Single-Cell and Spatial Omics</div> <div class="author"> Dongyuan Song, Qingyang Wang, Guanao Yan, and <span class="more-authors" title="click to view 3 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '3 more authors' ? 'Tianyang Liu, Tianyi Sun, Jingyi Jessica Li' : '3 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">3 more authors</span> </div> <div class="periodical"> <em>Nature Biotechnology</em>, 2024 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/s41587-023-01772-1" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Nat. Commun.</abbr> </div> <div id="qian2024sccube" class="col-sm-8"> <div class="title">Simulating Multiple Variability in Spatially Resolved Transcriptomics with scCube</div> <div class="author"> Jingyang Qian, Hudong Bao, Xin Shao, and <span class="more-authors" title="click to view 10 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '10 more authors' ? 'Yin Fang, Jie Liao, Zhuo Chen, Chengyu Li, Wenbo Guo, Yining Hu, Anyao Li, Yue Yao, Xiaohui Fan, Yiyu Cheng' : '10 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">10 more authors</span> </div> <div class="periodical"> <em>Nature Communications</em>, 2024 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/s41467-024-49445-0" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> </ol> <h2 class="bibliography">2023</h2> <ol class="bibliography"> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Genome Biology</abbr> </div> <div id="zhu2023srtsim" class="col-sm-8"> <div class="title">SRTsim: Spatial Pattern Preserving Simulations for Spatially Resolved Transcriptomics</div> <div class="author"> Jiaqiang Zhu, Lulu Shang, and Xiang Zhou </div> <div class="periodical"> <em>Genome Biology</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1186/s13059-023-02879-z" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">DOI</a> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">JMLR</abbr> </div> <div id="bengio2023foundations" class="col-sm-8"> <div class="title">GFlowNet Foundations</div> <div class="author"> Yoshua Bengio, Salem Lahlou, Tristan Deleu, and <span class="more-authors" title="click to view 3 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '3 more authors' ? 'Edward J. Hu, Mo Tiwari, Emmanuel Bengio' : '3 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">3 more authors</span> </div> <div class="periodical"> <em>Journal of Machine Learning Research</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">ICML</abbr> </div> <div id="pan2023better" class="col-sm-8"> <div class="title">Better Training of GFlowNets with Local Credit and Incomplete Trajectories</div> <div class="author"> Ling Pan, Nikolay Malkin, Dinghuai Zhang, and <span class="more-authors" title="click to view 1 more author" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '1 more author' ? 'Yoshua Bengio' : '1 more author'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">1 more author</span> </div> <div class="periodical"> <em>In International Conference on Machine Learning (ICML)</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> </ol> <h2 class="bibliography">2022</h2> <ol class="bibliography"><li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">NeurIPS</abbr> </div> <div id="malkin2022trajectory" class="col-sm-8"> <div class="title">Trajectory Balance: Improved Credit Assignment in GFlowNets</div> <div class="author"> Nikolay Malkin, Moksh Jain, Emmanuel Bengio, and <span class="more-authors" title="click to view 2 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '2 more authors' ? 'Chen Sun, Yoshua Bengio' : '2 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">2 more authors</span> </div> <div class="periodical"> <em>In Advances in Neural Information Processing Systems (NeurIPS)</em>, 2022 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li></ol> <h2 class="bibliography">2021</h2> <ol class="bibliography"><li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">NeurIPS</abbr> </div> <div id="bengio2021flownetworks" class="col-sm-8"> <div class="title">Flow Network based Generative Models for Non-Iterative Diverse Candidate Generation</div> <div class="author"> Emmanuel Bengio, Moksh Jain, Maksym Korablyov, and <span class="more-authors" title="click to view 2 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '2 more authors' ? 'Doina Precup, Yoshua Bengio' : '2 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">2 more authors</span> </div> <div class="periodical"> <em>In Advances in Neural Information Processing Systems (NeurIPS)</em>, 2021 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li></ol> </div> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container"> © Copyright 2026 Magnus Victor Boock. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false
   };
-</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
     addBackToTop();
   </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
 // get the ninja-keys element
@@ -50,375 +67,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-a-post-with-plotly-js",
-        
-          title: "a post with plotly.js",
-        
-        description: "this is what included plotly.js code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/plotly/";
-          
-        },
-      },{id: "post-a-post-with-image-galleries",
-        
-          title: "a post with image galleries",
-        
-        description: "this is what included image galleries could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/photo-gallery/";
-          
-        },
-      },{id: "post-google-gemini-updates-flash-1-5-gemma-2-and-project-astra",
-        
-          title: 'Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
-        
-        description: "We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.",
-        section: "Posts",
-        handler: () => {
-          
-            window.open("https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/", "_blank");
-          
-        },
-      },{id: "post-a-post-with-tabs",
-        
-          title: "a post with tabs",
-        
-        description: "this is what included tabs in a post could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/tabs/";
-          
-        },
-      },{id: "post-a-post-with-typograms",
-        
-          title: "a post with typograms",
-        
-        description: "this is what included typograms code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/typograms/";
-          
-        },
-      },{id: "post-a-post-that-can-be-cited",
-        
-          title: "a post that can be cited",
-        
-        description: "this is what a post that can be cited looks like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/post-citation/";
-          
-        },
-      },{id: "post-a-post-with-pseudo-code",
-        
-          title: "a post with pseudo code",
-        
-        description: "this is what included pseudo code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/pseudocode/";
-          
-        },
-      },{id: "post-a-post-with-code-diff",
-        
-          title: "a post with code diff",
-        
-        description: "this is how you can display code diffs",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/code-diff/";
-          
-        },
-      },{id: "post-a-post-with-advanced-image-components",
-        
-          title: "a post with advanced image components",
-        
-        description: "this is what advanced image components could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/advanced-images/";
-          
-        },
-      },{id: "post-a-post-with-vega-lite",
-        
-          title: "a post with vega lite",
-        
-        description: "this is what included vega lite code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/vega-lite/";
-          
-        },
-      },{id: "post-a-post-with-geojson",
-        
-          title: "a post with geojson",
-        
-        description: "this is what included geojson code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/geojson-map/";
-          
-        },
-      },{id: "post-a-post-with-echarts",
-        
-          title: "a post with echarts",
-        
-        description: "this is what included echarts code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/echarts/";
-          
-        },
-      },{id: "post-a-post-with-chart-js",
-        
-          title: "a post with chart.js",
-        
-        description: "this is what included chart.js code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/chartjs/";
-          
-        },
-      },{id: "post-a-post-with-tikzjax",
-        
-          title: "a post with TikZJax",
-        
-        description: "this is what included TikZ code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/tikzjax/";
-          
-        },
-      },{id: "post-a-post-with-bibliography",
-        
-          title: "a post with bibliography",
-        
-        description: "an example of a blog post with bibliography",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/post-bibliography/";
-          
-        },
-      },{id: "post-a-post-with-jupyter-notebook",
-        
-          title: "a post with jupyter notebook",
-        
-        description: "an example of a blog post with jupyter notebook",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/jupyter-notebook/";
-          
-        },
-      },{id: "post-a-post-with-custom-blockquotes",
-        
-          title: "a post with custom blockquotes",
-        
-        description: "an example of a blog post with custom blockquotes",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/custom-blockquotes/";
-          
-        },
-      },{id: "post-a-post-with-table-of-contents-on-a-sidebar",
-        
-          title: "a post with table of contents on a sidebar",
-        
-        description: "an example of a blog post with table of contents on a sidebar",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/sidebar-table-of-contents/";
-          
-        },
-      },{id: "post-a-post-with-audios",
-        
-          title: "a post with audios",
-        
-        description: "this is what included audios could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/audios/";
-          
-        },
-      },{id: "post-a-post-with-videos",
-        
-          title: "a post with videos",
-        
-        description: "this is what included videos could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/videos/";
-          
-        },
-      },{id: "post-displaying-beautiful-interactive-tables",
-        
-          title: "displaying beautiful interactive tables",
-        
-        description: "an example of how to use interactive tables in al-folio",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/tables/";
-          
-        },
-      },{id: "post-a-post-with-table-of-contents",
-        
-          title: "a post with table of contents",
-        
-        description: "an example of a blog post with table of contents",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/table-of-contents/";
-          
-        },
-      },{id: "post-a-post-with-giscus-comments",
-        
-          title: "a post with giscus comments",
-        
-        description: "an example of a blog post with giscus comments",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2022/giscus-comments/";
-          
-        },
-      },{id: "post-displaying-external-posts-on-your-al-folio-blog",
-        
-          title: 'Displaying External Posts on Your al-folio Blog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.open("https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2", "_blank");
-          
-        },
-      },{id: "post-a-post-with-redirect",
-        
-          title: "a post with redirect",
-        
-        description: "you can also redirect to assets like pdf",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/assets/pdf/example_pdf.pdf";
-          
-        },
-      },{id: "post-a-post-with-diagrams",
-        
-          title: "a post with diagrams",
-        
-        description: "an example of a blog post with diagrams",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2021/diagrams/";
-          
-        },
-      },{id: "post-a-distill-style-blog-post",
-        
-          title: "a distill-style blog post",
-        
-        description: "an example of a distill-style blog post and main elements",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2021/distill/";
-          
-        },
-      },{id: "post-a-post-with-twitter",
-        
-          title: "a post with twitter",
-        
-        description: "an example of a blog post with twitter",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2020/twitter/";
-          
-        },
-      },{id: "post-a-post-with-disqus-comments",
-        
-          title: "a post with disqus comments",
-        
-        description: "an example of a blog post with disqus comments",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/disqus-comments/";
-          
-        },
-      },{id: "post-a-post-with-math",
-        
-          title: "a post with math",
-        
-        description: "an example of a blog post with some math",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/math/";
-          
-        },
-      },{id: "post-a-post-with-code",
-        
-          title: "a post with code",
-        
-        description: "an example of a blog post with some code",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/code/";
-          
-        },
-      },{id: "post-a-post-with-images",
-        
-          title: "a post with images",
-        
-        description: "this is what included images could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/images/";
-          
-        },
-      },{id: "post-a-post-with-formatting-and-links",
-        
-          title: "a post with formatting and links",
-        
-        description: "march &amp; april, looking forward to summer",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/formatting-and-links/";
-          
-        },
-      },{id: "books-the-godfather",
-          title: 'The Godfather',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_godfather/";
-            },},{id: "news-started-my-phd-in-computer-science-at-sdu-supervised-by-prof-melih-kandemir",
+        },{id: "news-started-my-phd-in-computer-science-at-sdu-supervised-by-prof-melih-kandemir",
           title: 'Started my PhD in Computer Science at SDU, supervised by Prof. Melih Kandemir....',
           description: "",
           section: "News",},{id: "news-new-preprint-out-hitting-time-isomorphism-for-multi-stage-planning-with-foundation-policies",
@@ -439,16 +88,6 @@ ninja.data = [{
           description: "A cross-platform desktop app for skeletal age estimation, BS thesis and NIJ-funded research project",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_ta3_age_estimation/";
-            },},{id: "teachings-data-science-fundamentals",
-          title: 'Data Science Fundamentals',
-          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
-          section: "Teachings",handler: () => {
-              window.location.href = "/teachings/data-science-fundamentals/";
-            },},{id: "teachings-introduction-to-machine-learning",
-          title: 'Introduction to Machine Learning',
-          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
-          section: "Teachings",handler: () => {
-              window.location.href = "/teachings/introduction-to-machine-learning/";
             },},{
         id: 'social-cv',
         title: 'CV',
