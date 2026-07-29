@@ -5,7 +5,8 @@ cv_pdf: /assets/pdf/resume_public.pdf # path to your CV PDF file
 email: debug-saddler.6s@icloud.com # your email address
 github_username: MagnusBoock # your GitHub username
 linkedin_username: magnus-boock # your LinkedIn username
+orcid_id: 0009-0001-3459-2310 # your ORCID iD
 # rss_icon: true # comment this line to hide the RSS icon
-# scholar_userid: # your Google Scholar ID
+scholar_userid: 9itaTnQAAAAJ # your Google Scholar ID
 # wechat_qr: # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
 # whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)

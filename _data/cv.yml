@@ -4,7 +4,7 @@ cv:
   email: debug-saddler.6s@icloud.com
   location: Odense, Denmark
   image: ""
-  summary: PhD student in Computer Science at the University of Southern Denmark, researching offline distributional reinforcement learning with PAC-Bayesian methods.
+  summary: PhD student in Computer Science at the University of Southern Denmark, researching offline distributional reinforcement learning with PAC-Bayesian methods since August 2025.
 
   social_networks:
     - network: GitHub
@@ -77,10 +77,46 @@ cv:
         start_date: 2021-09
         highlights:
           - Introduction to Computer Science, Algorithms and Data Structures, Networks and Cybersecurity, and Reinforcement Learning.
-
+    
     Skills:
-      - name: Languages
-        keywords: "Python, C#, C++, C, JavaScript, TypeScript, Java, SQL"
+      - name: Research Areas
+        icon: fa-solid fa-brain
+        keywords:
+          - Reinforcement Learning (Offline, Distributional)
+          - Deep Learning
+          - Graph-based Planning
+          - Representation Learning
 
-      - name: Frameworks & Tools
-        keywords: "PyTorch, JAX, .NET, Git"
+      - name: ML Frameworks & Libraries
+        icon: fa-solid fa-layer-group
+        keywords:
+          - PyTorch
+          - JAX
+          - NumPy
+          - SciPy
+          - Scikit-learn
+
+      - name: RL Environments & Benchmarks
+        icon: fa-solid fa-gamepad
+        keywords:
+          - Gymnasium (MuJoCo)
+          - D4RL
+          - OGBench
+
+      - name: Programming Languages
+        icon: fa-solid fa-code
+        keywords:
+          - Python
+          - C++
+          - C
+          - C#
+
+      - name: Tools & Platforms
+        icon: fa-solid fa-toolbox
+        keywords:
+          - Git
+          - Linux
+          - Conda
+          - LaTeX
+          - Weights & Biases
+
