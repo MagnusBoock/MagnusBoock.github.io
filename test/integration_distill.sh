@@ -1,14 +1,39 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# This starter's own content has no real distill-format post. The distill
+# layout (al_folio_distill) still needs a post exercising it to verify
+# against, so this test writes a disposable fixture post into _posts/ for the
+# duration of the build and removes it again afterward — it must never be
+# committed or shipped in the published site.
+
 tmp_dir="$(mktemp -d)"
 tmp_override="${tmp_dir}/distill-override.yml"
 tmp_site="${tmp_dir}/site"
 
+distill_fixture="_posts/1999-01-03-integration-test-distill.md"
+
 cleanup() {
+  rm -f "${distill_fixture}"
   rm -rf "${tmp_dir}"
 }
 trap cleanup EXIT
+
+cat >"${distill_fixture}" <<'POST'
+---
+layout: distill
+title: integration test distill post
+description: fixture for the distill integration test
+date: 1999-01-03
+giscus_comments: true
+mermaid:
+  enabled: true
+  zoomable: true
+tikzjax: true
+---
+
+Disposable fixture for the distill integration test.
+POST
 
 cat >"${tmp_override}" <<'YAML'
 giscus:
@@ -20,7 +45,7 @@ YAML
 
 bundle exec jekyll build --config "_config.yml,${tmp_override}" -d "${tmp_site}" >/dev/null
 
-distill_page="${tmp_site}/blog/2021/distill/index.html"
+distill_page="${tmp_site}/blog/1999/integration-test-distill/index.html"
 
 if [ ! -f "${distill_page}" ]; then
   echo "distill page was not generated at ${distill_page}" >&2

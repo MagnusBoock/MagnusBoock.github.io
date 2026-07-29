@@ -1,38 +1,15 @@
 name: Visual regression checks
 
+# Disabled from automatic triggers: this workflow diffs the site against the
+# stock al-folio v0.16.3 baseline, which only makes sense for the upstream
+# theme repo (or a fork tracking it). This site was created via "Use this
+# template", which deliberately has no shared git history/tags with
+# alshedivat/al-folio (see README), and its content has intentionally
+# diverged from the vanilla template — so a pixel diff against that baseline
+# would just flag customization as "regressions". Kept as workflow_dispatch
+# in case it's ever useful to run by hand.
 on:
-  pull_request:
-    branches: [main, master, v1.0-dev]
-    paths:
-      - "_config.yml"
-      - "_data/**"
-      - "_bibliography/**"
-      - "_pages/**"
-      - "_posts/**"
-      - "_projects/**"
-      - "assets/**"
-      - "test/visual/**"
-      - ".github/workflows/visual-regression.yml"
-      - "package.json"
-      - "package-lock.json"
-      - "Gemfile"
-      - "Gemfile.lock"
-  push:
-    branches: [v1.0-dev]
-    paths:
-      - "_config.yml"
-      - "_data/**"
-      - "_bibliography/**"
-      - "_pages/**"
-      - "_posts/**"
-      - "_projects/**"
-      - "assets/**"
-      - "test/visual/**"
-      - ".github/workflows/visual-regression.yml"
-      - "package.json"
-      - "package-lock.json"
-      - "Gemfile"
-      - "Gemfile.lock"
+  workflow_dispatch:
 
 jobs:
   visual-regression:

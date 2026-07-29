@@ -77,7 +77,7 @@ cv:
         start_date: 2021-09
         highlights:
           - Introduction to Computer Science, Algorithms and Data Structures, Networks and Cybersecurity, and Reinforcement Learning.
-    
+
     Skills:
       - name: Research Areas
         icon: fa-solid fa-brain
@@ -119,4 +119,3 @@ cv:
           - Conda
           - LaTeX
           - Weights & Biases
-
