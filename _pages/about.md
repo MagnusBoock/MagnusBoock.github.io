@@ -27,4 +27,4 @@ latest_posts:
 
 I'm a PhD student in Computer Science at the [University of Southern Denmark](https://www.sdu.dk/), researching offline distributional reinforcement learning with PAC-Bayesian methods, supervised by Prof. Melih Kandemir. My recent [preprint](https://arxiv.org/abs/2605.06470) develops an operator-theoretic framework for learning directed state representations from hitting-time observations, used to build Isomorphic Embedding Learning (IEL), a foundation policy algorithm for long-horizon offline planning.
 
-Before starting my PhD, I completed an MS thesis on generative flow networks for artificial spatial transcriptomics data, and a BS thesis on an age-estimation platform for skeletal remains (TA3), both at SDU.
+Before starting my PhD, I completed an MS thesis on generative flow networks for artificial spatial transcriptomics data and a BS thesis on an age-estimation platform for skeletal remains (TA3), both at SDU.
