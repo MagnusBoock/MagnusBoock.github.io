@@ -1,0 +1,109 @@
+# RenderCV-specific copy of _data/cv.yml's content, kept in sync by hand.
+#
+# Why this file exists instead of pointing RenderCV at _data/cv.yml directly:
+# RenderCV's schema forbids extra fields at the top level of `cv:` (label,
+# image, summary all fail validation), and its templater crashes outright
+# (not just a validation warning) on any *unrecognized* list-valued field on
+# an entry — which _data/cv.yml's Skills section relies on (`keywords:` is a
+# list) for the website's own /cv/ page rendering via al_folio_cv. Since this
+# starter is not allowed to own `_includes/` (enforced by
+# test/style_contract.js) to add a compatibility override, the two consumers
+# need their own copies: this file satisfies RenderCV's schema, _data/cv.yml
+# (untouched) satisfies the website.
+#
+# If you update _data/cv.yml's content, mirror the changes here too.
+
+cv:
+  name: Magnus Victor Boock
+  email: debug-saddler.6s@icloud.com
+  location: Odense, Denmark
+
+  social_networks:
+    - network: GitHub
+      username: MagnusBoock
+    - network: LinkedIn
+      username: magnus-boock
+
+  sections:
+    Summary:
+      - bullet: PhD student in Computer Science at the University of Southern Denmark, researching offline distributional reinforcement learning with PAC-Bayesian methods since August 2025.
+    Education:
+      - institution: University of Southern Denmark
+        location: Odense, Denmark
+        url: https://www.sdu.dk/
+        area: Computer Science
+        degree: PhD
+        start_date: 2025-08
+        end_date: 2028-07
+        courses: "Research area: Offline Distributional Reinforcement Learning with PAC-Bayesian methods"
+        highlights:
+          - "Supervised by Prof. Melih Kandemir."
+          - "Preprint: Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies (arXiv:2605.06470) — a new theoretical framework and algorithm for long-horizon offline RL planning, proposing an operator-theoretic framework that learns asymmetric, triangle-inequality-satisfying state representations from hitting-time observations, used to develop Isomorphic Embedding Learning (IEL), a foundation policy algorithm achieving state-of-the-art results on long-horizon navigation benchmarks via directed graph-based planning."
+          - "RLSS 2026: Selected attendee, Reinforcement Learning Summer School, Milan — competitive admission, lectures from leading RL researchers."
+
+      - institution: University of Southern Denmark
+        location: Odense, Denmark
+        url: https://www.sdu.dk/
+        area: Computer Science
+        degree: MS
+        start_date: 2023-09
+        end_date: 2025-06
+        courses: "Thesis: Artificial data generation of Spatial Transcriptomics with Reinforcement Learning"
+        highlights:
+          - "Generative Flow Networks for realistic tissue data generation. Supervised by Prof. Richard Röttger and Prof. Melih Kandemir."
+          - "Weighted average Danish grade: 10.67/12, GPA converted: 3.76/4. Thesis received the top grade."
+
+      - institution: University of Southern Denmark
+        location: Odense, Denmark
+        url: https://www.sdu.dk/
+        area: Computer Science
+        degree: BS
+        start_date: 2020-09
+        end_date: 2023-06
+        courses: "Thesis: Development of age estimation platform for skeletal remains (TA3)"
+        highlights:
+          - "Supervised by Assoc. Prof. Luís Cruz-Filipe."
+          - "Weighted average Danish grade: 10.38/12, GPA converted: 3.59/4. Thesis received the top grade."
+
+    Experience:
+      - company: ForeFlight, Routing Team
+        position: Student Software Developer (.NET)
+        location: Odense, Denmark
+        start_date: 2024-03
+        end_date: 2025-04
+        highlights:
+          - Enhanced routing engine with shortest path and constraint algorithms.
+          - Implemented new functionality, bug fixes and ported internal tools.
+
+      - company: NIJ-TA3 ADBOU / SDU
+        position: Student Software Developer
+        location: Odense, Denmark
+        start_date: 2023-07
+        end_date: 2024-12
+        summary: The project is based on Transition Analysis 3, a collaborative effort between SDU and the University of Pennsylvania, funded by the US National Institute of Justice.
+        highlights:
+          - Co-developed a cross-platform desktop app for accurate age estimation based on skeletal remains.
+          - The project resulted in a publication in Forensic Science International.
+
+      - company: IMADA / SDU
+        position: Teaching Assistant
+        location: Odense, Denmark
+        start_date: 2021-09
+        highlights:
+          - Introduction to Computer Science, Algorithms and Data Structures, Networks and Cybersecurity, and Reinforcement Learning.
+
+    Skills:
+      - label: Research Areas
+        details: Reinforcement Learning (Offline, Distributional), Deep Learning, Graph-based Planning, Representation Learning
+
+      - label: ML Frameworks & Libraries
+        details: PyTorch, JAX, NumPy, SciPy, Scikit-learn
+
+      - label: RL Environments & Benchmarks
+        details: Gymnasium (MuJoCo), D4RL, OGBench
+
+      - label: Programming Languages
+        details: Python, C++, C, C#
+
+      - label: Tools & Platforms
+        details: Git, Linux, Conda, LaTeX, Weights & Biases
