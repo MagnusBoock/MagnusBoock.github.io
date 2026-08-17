@@ -38,6 +38,9 @@ on:
       - "package-lock.json"
       - ".github/workflows/unit-tests.yml"
 
+permissions:
+  contents: read
+
 jobs:
   comments-integration-tests:
     runs-on: ubuntu-latest

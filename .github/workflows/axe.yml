@@ -19,6 +19,9 @@ on:
 env:
   URL: ""
 
+permissions:
+  contents: read
+
 jobs:
   check:
     # available images: https://github.com/actions/runner-images#available-images

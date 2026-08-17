@@ -11,6 +11,9 @@ name: Visual regression checks
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   visual-regression:
     runs-on: ubuntu-latest

@@ -7,6 +7,9 @@ on:
     - cron: "0 0 * * 5" # Friday
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-citations:
     runs-on: ubuntu-latest
@@ -93,6 +96,10 @@ jobs:
 
       - name: Commit and push if changed
         run: |
+          if [ ! -f _data/citations.yml ]; then
+            echo "ℹ️ _data/citations.yml does not exist; nothing to commit."
+            exit 0
+          fi
           git add _data/citations.yml
           git diff --staged --quiet || (
             echo "📤 Committing and pushing changes..."

@@ -34,6 +34,9 @@ on:
       - "test/integration_upgrade_cli.sh"
       - ".github/workflows/upgrade-check.yml"
 
+permissions:
+  contents: read
+
 jobs:
   upgrade-check:
     runs-on: ubuntu-latest

@@ -4,6 +4,9 @@ on:
   repository_dispatch:
     types: [prettier-failed-on-pr]
 
+permissions:
+  pull-requests: write
+
 jobs:
   comment:
     # available images: https://github.com/actions/runner-images#available-images
