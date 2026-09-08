@@ -9,7 +9,7 @@ github: https://github.com/MagnusBoock/IEL/
 
 **Paper:** {% cite boock2026hitting %}
 **Authors:** Magnus Victor Boock, Abdullah Akgül, Mustafa Mert Çelikok, Melih Kandemir — University of Southern Denmark
-**Code:** https://github.com/MagnusBoock/IEL/
+**Code:** [https://github.com/MagnusBoock/IEL/](https://github.com/MagnusBoock/IEL/)
 
 ## Introduction
 
