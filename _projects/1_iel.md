@@ -11,7 +11,7 @@ github: https://github.com/MagnusBoock/IEL/
 **Authors:** Magnus Victor Boock, Abdullah Akgül, Mustafa Mert Çelikok, Melih Kandemir — University of Southern Denmark
 **Code:** [https://github.com/MagnusBoock/IEL/](https://github.com/MagnusBoock/IEL/)
 
-## Introduction
+<!-- ## Introduction
 
 Offline reinforcement learning increasingly relies on large, reward-free trajectory datasets to pretrain a single reusable policy — a _foundation policy_ — that can solve an open set of goals in a zero-shot manner. This idea underlies recent large-scale efforts from unsupervised RL pretraining to Vision-Language-Action (VLA) models that train one policy on heterogeneous data and deploy it across many unseen tasks. IEL contributes a new theoretical and algorithmic foundation for this setting: it is the first approach to jointly satisfy the three properties the authors argue are essential for a foundation policy to handle **long-horizon, multi-stage tasks** — unsupervised (goal-agnostic) training, _directional_ distances, and the _triangle inequality_.
 
@@ -75,4 +75,103 @@ Additional findings:
 
 ## Conclusion
 
-IEL is presented as the first foundation-policy learning algorithm to jointly satisfy unsupervised (goal-agnostic) training, directional distance, and the triangle inequality — the three properties the authors identify as necessary for reliable multi-stage planning (Table 1). It is grounded in a new operator-theoretic framework proving that expected hitting times are exact linear functionals of latent displacements, identifiable up to a bounded linear isomorphism, with full finite-sample PAC guarantees. Empirically, it improves on the state of the art (HILP) for offline foundation-policy learning across six D4RL maze and kitchen benchmarks. The authors note open questions for future work — extending the range-condition guarantees to nonlinear/high-dimensional settings, quantifying the effect of state-space discretization, and tightening the TD-learning bound to further strengthen directionality — and frame the broader ambition of the work as helping shift Vision-Language-Action (VLA) research from imitation learning toward reward-based, foundation-policy learning.
+IEL is presented as the first foundation-policy learning algorithm to jointly satisfy unsupervised (goal-agnostic) training, directional distance, and the triangle inequality — the three properties the authors identify as necessary for reliable multi-stage planning (Table 1). It is grounded in a new operator-theoretic framework proving that expected hitting times are exact linear functionals of latent displacements, identifiable up to a bounded linear isomorphism, with full finite-sample PAC guarantees. Empirically, it improves on the state of the art (HILP) for offline foundation-policy learning across six D4RL maze and kitchen benchmarks. The authors note open questions for future work — extending the range-condition guarantees to nonlinear/high-dimensional settings, quantifying the effect of state-space discretization, and tightening the TD-learning bound to further strengthen directionality — and frame the broader ambition of the work as helping shift Vision-Language-Action (VLA) research from imitation learning toward reward-based, foundation-policy learning. -->
+
+
+## Introduction
+Offline reinforcement learning increasingly relies on large, reward-free trajectory datasets to pretrain a single reusable policy — a *foundation policy* — that can solve an open set of goals zero-shot (without further training). This idea underlies efforts ranging from unsupervised RL pretraining to Vision-Language-Action (VLA) models that train one policy on heterogeneous data and deploy it on many unseen tasks.
+
+The authors hypothesize that, for such a policy to handle **long-horizon, multi-stage tasks**, its learned state representation must jointly support three properties:
+- **Unsupervised (goal-agnostic) policy training** — the policy never sees real goals during training; goals are introduced only at deployment.
+- **Directional distances** — the cost of going from A to B may differ from B to A.
+- **The triangle inequality** — local distances compose into consistent plans through intermediate sub-goals.
+
+IEL is proposed as the first method to satisfy all three (Table 1).
+
+## Problem Statement
+The environment is a Controlled Markov Process (CMP) $(\mathcal{X}, \mathcal{A}, \mathcal{P})$ — an MDP without rewards — observed only through an offline dataset of trajectories collected by a fixed behavior policy $\pi\_B$. The goal is to recover the **optimal in-distribution foundation policy** $\pi^\star\_{D,g}$: for every goal $g$, the policy that minimizes the *expected hitting time* $V^\pi(x,g) = \mathbb{E}[T^\pi\_{x\to g}]$ (the expected number of steps to reach $g$ from $x$), restricted to actions supported by the data ($\pi \ll \pi\_B$).
+
+**Why existing methods fall short (Table 1).** The paper groups prior work by what it learns:
+- **Successor-measure methods** (FB {% cite touati2021learning %}, C-Learning, CRL {% cite eysenbach2022contrastive %}, PSM, CMD): directional, but all except CMD fail the triangle inequality, so distances cannot be composed across sub-goals.
+- **Reachability-distance methods** (HIQL, QRL {% cite wang2023optimal %}, TMD {% cite myers2025quasimetric %}): QRL and TMD do satisfy the triangle inequality, but all train their policies on state–goal pairs drawn from the dataset, so they are not goal-agnostic.
+- **Hitting-time methods** (GAS {% cite baek2025graph %}, HILP {% cite park2024foundation %}): satisfy the triangle inequality by construction, and HILP also supports goal-agnostic policy training. But their *symmetric* Euclidean features cannot represent direction-dependent costs — which can arise from the dynamics, the policy, controllability, the support of the offline data, or irreversible transitions. GAS additionally needs real goal labels to train its policy.
+
+The authors note these families overlap and are grouped by their primary learned object, not as a strict partition. "Goal-agnostic" here refers only to how the *policy* is trained; representation learning may still use dataset states and relabeling (Appendix E). What sets IEL apart is combining this training interface with a directed, compositional temporal cost.
+
+## Methodology
+IEL builds on an **operator-theoretic, Hilbert-space view** of the environment, in the spirit of Koopman/Perron-Frobenius operators used for nonlinear dynamical systems:
+- States are mapped to a Hilbert space $\mathcal{H}$ by a feature map $\phi$, and each action acts as a linear operator $\mathcal{K}\_a$ on these features. A CMP is **$\epsilon$-Sufficient** (Definition 2.1) if $\left\|\mathbb{E}\_{x' \sim \mathcal{P}(\cdot\|x,a)}[\phi(x')] - \mathcal{K}\_a\phi(x)\right\|\_{\mathcal{H}} \le \epsilon$ — i.e., dynamics are linear in latent space up to error $\epsilon$. This is the Hilbert-space analogue of linear action models and approximate linear MDPs.
+- **Hitting Time Isomorphism:** under exact linearity, the expected hitting time is a *linear function of the displacement* between goal and state features: $V^\pi(x,g) = \langle \phi(g) - \phi(x), \omega\_g^\pi \rangle\_{\mathcal{H}}$, where $\omega\_g^\pi$ acts as a "task identifier" for reaching $g$. Temporal structure becomes geometric structure.
+- This representation exists under a realizability (range) condition, and is unique up to a bounded linear change of coordinates (see Theoretical Analysis).
+
+**What the theory specifies vs. permits.** The authors are explicit that the hitting-time regression is the component most tightly bound to the theory. The contrastive task identifier, the exponential-cosine distance score, and graph search are algorithmic choices the theory *permits* rather than prescribes.
+
+## Algorithm
+IEL (Section 2.3; pseudocode in Appendix H) has four components:
+
+1. **Task identifier learning** — a contrastive (InfoNCE) objective, in the spirit of contrastive RL {% cite eysenbach2022contrastive %}, learns a map $\omega\_\psi(g)$ from a goal to a "directional axis." Each goal is paired with a Gaussian-noise-augmented copy $\tilde g\_i$ and contrasted against other goals in the batch of size $b$, using L2-normalized identifiers $\hat\omega\_\psi$:
+   $\mathcal{L}\_{\mathrm{NCE}}(\psi) = -\frac{1}{b}\sum\_{i=1}^{b}\left[\frac{\hat\omega\_\psi(g\_i)^\top \hat\omega\_\psi(\tilde{g}\_i)}{\tau\_{\mathrm{NCE}}} - \log\sum\_{j=1}^{b}\exp\left(\frac{\hat\omega\_\psi(g\_i)^\top \hat\omega\_\psi(\tilde{g}\_j)}{\tau\_{\mathrm{NCE}}}\right)\right]$.
+   This learns an injective task parameterization; it does not directly solve for the exact theoretical $\omega\_g^\pi$.
+2. **Hitting-time regression** — intermediate states on offline trajectories are relabeled as goals, and the model regresses the observed (discounted) step gaps. It uses IQL-style {% cite kostrikov2022offline %} expectile regression; the default $\tau' = 0.5$ is plain mean regression, while $\tau' < 0.5$ would bias toward shorter paths. The discounted target keeps an exact hitting-time interpretation and differs from the raw step count by at most 0.44 steps ($\gamma = 0.99$, $H \le 10$).
+3. **Temporal-difference (TD) learning** — long-range Monte Carlo targets are rare and hard to predict, so IEL limits the regression horizon and uses TD backups to propagate information further and enable "stitching" of trajectory pieces. To keep TD stable, IEL uses a positive surrogate score
+   $\|\phi(g)-\phi(x)\| \exp(\beta(1-\cos\xi\_{x\to g,g}))$,
+   where $\xi$ is the angle between the displacement and the task identifier. HILP's symmetric L2 score is an upper bound to IEL's readout, and the surrogate reduces to HILP's score when $\beta = 0$. The exponential factor softly penalizes misalignment with the goal direction — this is the **directional bias** HILP lacks.
+4. **Directed graph planning** — at evaluation, IEL builds a directed graph over a diverse coreset of dataset states (selected by a Determinantal Point Process {% cite kulesza2012determinantal %}). Edges come from a symmetrized Minimum Spanning Tree (to guarantee connectivity) plus $k$-Nearest-Neighbors, but every edge keeps its **asymmetric** cost
+   $$d(s,t,g) := \|\phi(t) - \phi(s)\|\_2 \cdot \exp\big(\beta(1-\cos(\xi\_{s\to t,g}))\big).$$
+   This edge cost is a practical surrogate and is *not* claimed to satisfy the triangle inequality itself; the **shortest-path distance** over the graph does, by construction. A shortest-path search from the goal on the reversed graph gives a navigation function; the agent localizes itself on the graph and moves toward the next node. A symmetric variant ($\beta = 0$, undirected edges) is goal-independent, so its graph can be precomputed.
+
+**Training** proceeds in three phases (Algorithm 3): (0) train the task encoder, then freeze it; (1) train the state encoder $\phi$ with TD + hitting-time regression, then freeze it; (2) train the policy $\pi(a\|x,z)$ with any off-the-shelf offline RL algorithm on the intrinsic reward $\langle \phi(x')-\phi(x), z\rangle$, where $z$ is a random unit-length direction — never a real goal. No parameters are updated at evaluation time.
+
+## Theoretical Analysis
+- **Existence (Theorem 2.2):** the hitting time admits the exact form $V^\pi(x,g) = \langle \phi(g) - \phi(x), \omega\_g^\pi \rangle$ *if and only if* the unit-cost vector $\mathbf{w\_1}$ lies in $\mathrm{range}(\mathcal{K}\_\pi - I)^\ast$ on the goal-$g$ transient feature span. This is a requirement on the representation, not on the data. In finite dimensions it holds automatically under natural conditions (invariant goal subspace, spectral radius below one), and approximate violations degrade the guarantee gradually (Appendix D).
+- **Identifiability (Theorem 2.3, Corollary 2.4):** assuming a "separating" policy that can reach every goal and well-conditioned readout operators, any two representations that reproduce these hitting times are related by a **unique bounded linear isomorphism**. The learned geometry thus reflects the environment's directed temporal structure rather than an arbitrary coordinate system — an identifiability property the authors note is absent from TMD's quasimetric and from HILP/GAS's symmetric heuristics. *Caveat:* such an isomorphism need not preserve Euclidean lengths or angles; IEL's norm- and angle-based scores are well-defined because learning and planning share one fixed coordinate system.
+- **Error under finite-dimensional compression (Theorem 3.3):** with a $d$-dimensional encoder, the worst-case hitting-time error is bounded by
+  $\sup\_{x} \left\|V^\pi(x,g) - \widehat{V}^\pi\_g(x)\right\| \le \dfrac{C\_H \|\omega\_g^\pi\|\,\epsilon}{1-\rho(\mathcal{T}^\pi\_Q)}$.
+  In words: the one-step latent error $\epsilon$ is amplified by an effective-horizon factor $1/(1-\rho)$, so small local errors compound more for goals that are hard to reach.
+- **Finite-sample guarantees (Theorems 3.4–3.5):** the regression minimizer aligns with a near-optimal reference geometry through a bounded linear map, and a PAC-style bound splits total error into approximation, model-class, statistical (Rademacher), data-coverage, readout-conditioning and trajectory-label-mismatch terms. These results assume i.i.d. *episodes* (not transitions) and a fixed task encoder. With the default $\tau' = 0.5$, the recovered geometry is that of the behavior policy; the gap to the optimal in-distribution policy adds a separate IQL-approximation error.
+
+## Results
+IEL is evaluated on six offline benchmarks: `antmaze-large-diverse`, `antmaze-large-play`, `kitchen-partial`, `kitchen-mixed` (D4RL {% cite fu2020d4rl %}) and `antmaze-ultra-diverse`, `antmaze-ultra-play` (AntMaze-Ultra extension {% cite jiang2023efficient %}). **HILP** {% cite park2024foundation %} is the primary baseline, as the only prior method designed for foundation-policy training with multi-stage planning; the setup and hyperparameters follow HILP. GC-IQL and GC-CQL results are taken from the HILP paper. To separate the effect of the representation from that of the planner, both HILP and IEL are also run with graph planning. The HILP numbers come from the authors' own seed-controlled rerun (within one published standard deviation of the original on five of six tasks).
+
+**Table 2 (excerpt)** — mean normalized return ± std, 8 seeds, $10^6$ gradient steps. Bold: best mean per row across all methods in the paper.
+
+| Dataset | GC-IQL | HILP Rec-Mid | HILP Sym-Graph | IEL Sym-Graph | IEL Asym-Graph |
+|---|---|---|---|---|---|
+| antmaze-large-diverse | 56.0 ± 6.0 | 68.0 ± 6.3 | 60.5 ± 18.8 | 55.0 ± 20.6 | **71.8 ± 6.5** |
+| antmaze-large-play | 56.0 ± 25.7 | 54.5 ± 11.9 | 45.5 ± 8.3 | **63.0 ± 14.9** | 62.8 ± 5.9 |
+| antmaze-ultra-diverse | 40.8 ± 11.1 | 39.8 ± 22.1 | 68.8 ± 23.0 | 62.5 ± 18.7 | **79.0 ± 4.5** |
+| antmaze-ultra-play | 41.8 ± 9.0 | 56.0 ± 18.9 | 60.2 ± 10.4 | 65.2 ± 13.5 | **73.8 ± 6.2** |
+| kitchen-partial | 56.4 ± 8.4 | 55.4 ± 9.2 | 53.8 ± 8.1 | **60.4 ± 5.5** | **60.4 ± 3.5** |
+| kitchen-mixed | **59.5 ± 3.8** | 53.7 ± 3.5 | 49.0 ± 4.6 | 57.8 ± 5.1 | 57.2 ± 3.8 |
+
+*Rec-Mid:* HILP's recursive-midpoint planning. *Sym/Asym-Graph:* graph planning with symmetric/asymmetric distances. Table 2 also includes GC-CQL and IEL Rec-Mid.
+
+Key outcomes:
+- **IEL uses graph planning better than HILP:** IEL Sym-Graph beats HILP Rec-Mid in **5 of 6** environments. Note that IEL Sym-Graph still uses a *directionally trained* representation ($\beta \neq 0$ during training); $\beta = 0$ applies only to the evaluation-time graph.
+- **Using direction at planning time helps on mazes:** Asym-Graph improves over Sym-Graph in **3** environments, ties in kitchen-partial, and is slightly lower in the remaining 2. Gains concentrate on AntMaze; the authors expect asymmetry to help multi-stage, compositional planning specifically, so no gain on Kitchen is consistent with the claim.
+- **Versus HILP Rec-Mid**, IEL Asym-Graph is higher on all six tasks, e.g. **79.0 vs. 39.8** on `antmaze-ultra-diverse` and **73.8 vs. 56.0** on `antmaze-ultra-play`. Its standard deviations are also lower than the originally published HILP-Plan results on all six tasks.
+
+**Ablations (Appendix I, Tables 3–6):**
+- Removing hitting-time regression ($\kappa = 0$) lowers Asym-Graph performance in all six environments (−24.3% on average) and Sym-Graph in five of six.
+- Every configuration lacking *either* regression *or* a graph planner lands in the same narrow band (51.1–55.6 mean); only full IEL with graph planning breaks out (60.7 Sym, 67.5 Asym). Neither component alone explains the improvement.
+- HILP and IEL have nearly identical means under Rec-Mid (54.6 vs. 55.4) but differ per environment by up to 12.7 points, because Rec-Mid never queries the task identifier $\omega$ that carries IEL's directionality.
+
+**Why GAS is not in the main comparison (Appendix I):** GAS {% cite baek2025graph %} trains its policy on concrete goal states from the dataset, which falls outside the goal-agnostic setting. The authors note GAS is likely to outperform IEL when goals are drawn from the dataset at training time. HILP Sym-Graph serves as the closest GAS-like baseline.
+
+**Sensitivity and compute:**
+- Almost all hyperparameter settings fall within two standard deviations of the best (Table 8); IEL is mildly sensitive to $H\_{\max}$ and the coreset parameter $\sigma$, with $\sigma = 0.25$ clearly hurting Asym-Graph on AntMaze-Ultra.
+- Training cost is negligibly different from HILP's. With a coreset of 8192 states, Asym-Graph evaluation (~700 s) is comparable to Rec-Mid (400–600 s), while Sym-Graph (~150 s) is about **3× faster** thanks to graph reuse.
+- Hardware: one NVIDIA RTX 4090 (24 GB) and an Intel i7-14700K; a full training-and-evaluation cycle takes about one hour.
+
+## Conclusion
+IEL is presented as the first foundation-policy method combining goal-agnostic policy training with a directed hitting-time geometry and a graph planner whose shortest-path distance satisfies the triangle inequality. It rests on an operator-theoretic framework showing that expected hitting times are linear functions of latent displacements, identifiable up to a bounded linear map, with compression and finite-sample error bounds. Empirically, directional embeddings improve multi-stage planning over HILP, both when learned and when exploited by the planner, with the largest gains on long-horizon AntMaze tasks.
+
+**Open questions and limitations (Section 5):**
+- The range condition still needs rigorous verification in nonlinear environments, and the effect of state-space discretization in high dimensions is unquantified.
+- Error scales with $1/(1-\rho)$, making it sensitive to the transient spectral radius.
+- The $\epsilon$-Sufficient assumption excludes dynamics with high-order stochasticity or non-Markovian dependencies.
+- The TD upper bound could be tightened to strengthen directionality.
+- The benchmarks have direction-dependent costs, but every state is reachable from every other; environments with truly irreversible transitions remain untested.
+- Extending the finite-sample theory beyond i.i.d. episodes is open.
+
+The authors frame the work as a route toward reward-based policy learning in settings that currently rely on imitation.
